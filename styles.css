@@ -381,7 +381,6 @@ body.dark .mobile-menu {
   display: block;
   border-radius: 1rem;
 }
-
 /* Slider Buttons */
 .slider-btn {
   position: absolute;
@@ -394,8 +393,10 @@ body.dark .mobile-menu {
   padding: 0.4rem 0.8rem;
   cursor: pointer;
   z-index: 2;
-  transition: background 0.3s;
+  transition: background 0.3s, opacity 0.3s ease;
   border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .slider-btn:hover {
@@ -404,18 +405,26 @@ body.dark .mobile-menu {
 
 .slider-btn.prev { left: 10px; }
 .slider-btn.next { right: 10px; }
-/* Hide by default */
-.portfolio-item.slider .slider-btn {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+
+/* Show buttons when hovering on desktop */
+@media (hover: hover) {
+  .portfolio-item.slider:hover .slider-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
-/* Show on hover of the whole slider container */
-.portfolio-item.slider:hover .slider-btn {
-  opacity: 1;
-  pointer-events: auto;
+/* Always show buttons on mobile */
+@media (hover: none) {
+  .portfolio-item.slider .slider-btn {
+    opacity: 1;
+    pointer-events: auto;
+    font-size: 2.5rem;
+    padding: 0.3rem 0.8rem;
+    background: rgba(0, 0, 0, 0.7); /* more visible on mobile */
+  }
 }
+
 /* Lightbox Modal */
 .image-modal {
   position: fixed;
